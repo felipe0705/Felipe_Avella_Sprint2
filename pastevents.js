@@ -1,4 +1,4 @@
-const data = {
+const data2 = {
     currentDate: "2023-01-01",
     events: [
         {
@@ -194,53 +194,63 @@ const data = {
         },
     ],
 };
+let eventos = document.getElementById("futuros")
 
-let carrusel = document.getElementById("carousel-Principal")
+let eventosF = filtrar(data2.events, data2.currentDate )
+pintarTarjetas( eventosF, eventos)
 
 
-
-for (let i = 0; i < data.events.length; i += 4) {
-    let carruselItem
-    
-    if (i < 4) {
-        carruselItem = document.createElement("div")
-        carruselItem.classList.add("carousel-item", "active")
-        
-    } else {
-        carruselItem = document.createElement("div")
-        carruselItem.classList.add("carousel-item")
-    }
-    let contenedor = document.createElement("div")
-    contenedor.classList.add( "d-flex","justify-content-around", "h-75")
-    
-    let carruselItem2 = document.createElement("div")
-    carruselItem2.classList.add("cards-wrapper", "d-flex")
-    
-
-    for (let j = i; j < i + 4; j++) {
-        if (data.events[j] != undefined) {
-            let card = document.createElement("div")
-            card.classList.add("card", "w-25", "me-2", )
-            card.innerHTML = ` 
-        <img src="${data.events[j].image}" class="card-img-top h-50  "  alt="...">
-        <div class="card-body  bg-secondary">
-            <h3 class="card-title text-center text-white">${data.events[j].name} </h3>
-            <p class="card-text text-center text-white">${data.events[j].description}</p>
-        </div>
-        <div class="d-flex justify-content-between p-3 bg-dark">
-            <a href="details.html#miFood" class="btn btn-secondary">Details</a>
-            <p class="card-text text-white">${data.events[j].price}</p>
-        </div>`
-            contenedor.appendChild(card)
+function filtrar(arreglo, fecha) {
+    let nuevoarreglo = []
+    for (let i = 0; i < arreglo.length; i++) {
+        if (arreglo[i].date < fecha) {
+            nuevoarreglo.push(arreglo[i])
         }
+        
     }
-    carruselItem.appendChild(carruselItem2)
-    carruselItem2.appendChild(contenedor)
+    return nuevoarreglo
     
-    carrusel.appendChild(carruselItem)
 }
-
-
-
+function pintarTarjetas(arreglo, divprincipal) {
+    for (let i = 0; i < arreglo.length; i += 4) {
+   
+        let carruselItem
+        if (i < 4) {
+            carruselItem = document.createElement("div")
+            carruselItem.classList.add("carousel-item", "active")
+            
+        } else {
+            carruselItem = document.createElement("div")
+            carruselItem.classList.add("carousel-item")
+        }     
+    
+        let contenedor = document.createElement("div")
+        contenedor.classList.add( "d-flex","justify-content-around",  "h-75")
+    
+        let carruselItem2 = document.createElement("div")
+        carruselItem2.classList.add("cards-wrapper", "d-flex", )
+    
+        for (let j = i; j < i + 4; j++) {
+            if (arreglo[j] != undefined) {
+                let card = document.createElement("div")
+                card.classList.add("card", "w-25", "ms-2")
+                card.innerHTML = ` 
+            <img src="${arreglo[j].image}" class="card-img-top h-50  "  alt="...">
+            <div class="card-body  bg-secondary">
+                <h3 class="card-title text-center text-white">${arreglo[j].name} </h3>
+                <p class="card-text text-center text-white">${arreglo[j].description}</p>
+            </div>
+            <div class="d-flex justify-content-between p-3 bg-dark">
+                <a href="details.html#miFood" class="btn btn-secondary">Details</a>
+                <p class="card-text text-white">${arreglo[j].price}</p>
+            </div>`
+                carruselItem2.appendChild(card)
+            }
+        }
+        contenedor.appendChild(carruselItem2)
+        carruselItem.appendChild(contenedor)
+        divprincipal.appendChild(carruselItem)
+    }
+}
 
 

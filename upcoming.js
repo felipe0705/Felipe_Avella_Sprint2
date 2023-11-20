@@ -197,7 +197,7 @@ const data2 = {
 let eventos = document.getElementById("futuros")
 
 let eventosF = filtrar(data2.events, data2.currentDate )
-pintarTarjetas(, eventos)
+pintarTarjetas( eventosF, eventos)
 
 
 function filtrar(arreglo, fecha) {
@@ -208,6 +208,7 @@ function filtrar(arreglo, fecha) {
         }
         
     }
+    return nuevoarreglo
     
 }
 function pintarTarjetas(arreglo, divprincipal) {
