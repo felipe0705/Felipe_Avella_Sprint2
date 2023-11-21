@@ -195,40 +195,181 @@ const data = {
     ],
 };
 
+////////////// navbar \\\\\\\\\\\\\\\\\\\\\\\
+
+let nav = document.getElementById('navbar')
+
+
+let navbarBrand = document.createElement("a");
+navbarBrand.className = "navbar-brand navbar-expand-sm bg-light-subtle object-fit-none border rounded";
+navbarBrand.href = "index.html";
+
+let brandImage = document.createElement("img");
+brandImage.src = "amazing_brand.png";
+brandImage.className = "logo";
+brandImage.alt = "logo";
+
+navbarBrand.appendChild(brandImage);
+
+let navbarButton = document.createElement("button");
+navbarButton.className = "navbar-toggler";
+navbarButton.type = "button";
+navbarButton.setAttribute("data-bs-toggle", "collapse");
+navbarButton.setAttribute("data-bs-target", "#navbarNav");
+navbarButton.setAttribute("aria-controls", "navbarNav");
+navbarButton.setAttribute("aria-expanded", "false");
+navbarButton.setAttribute("aria-label", "Toggle navigation");
+
+let navbarIcon = document.createElement("span");
+navbarIcon.className = "navbar-toggler-icon";
+
+navbarButton.appendChild(navbarIcon);
+
+let navbarCollapse = document.createElement("div");
+navbarCollapse.className = "collapse navbar-collapse";
+navbarCollapse.id = "navbarNav";
+
+var navbarList = document.createElement("ul");
+navbarList.className = "navbar-nav ms-auto";
+
+let navItems = [
+    { text: "Home", href: "index.html" },
+    { text: "Upcoming Events", href: "upcomingEvents.html" },
+    { text: "Past Events", href: "PastEvents.html" },
+    { text: "Contact", href: "Contact.html" },
+    { text: "Stats", href: "Stats.html" }
+];
+
+navItems.forEach(function (item) {
+    var navItem = document.createElement("li");
+    navItem.className = "nav-item fs-5 border me-2 border-danger-subtle rounded-4";
+
+    var navLink = document.createElement("a");
+    navLink.className = "nav-link active";
+    navLink.setAttribute("aria-current", "page");
+    navLink.href = item.href;
+    navLink.textContent = item.text;
+
+    navItem.appendChild(navLink);
+    navbarList.appendChild(navItem);
+});
+
+navbarCollapse.appendChild(navbarList);
+
+nav.appendChild(navbarBrand)
+
+nav.appendChild(navbarButton)
+
+nav.appendChild(navbarCollapse)
+
+///////////////////  baner \\\\\\\\\\\\\\\\\\\\
+
+let banner = document.getElementById("banner");
+banner.className =" carousel-inner";
+
+let images = ['optional_banner_1.jpg', 'optional_banner_2.jpg', 'optional_banner_3.jpg'];
+
+for (let i = 0; i < images.length; i++) {
+    let bannerItem = document.createElement('div');
+    bannerItem.className = i === 0 ? 'carousel-item active' : 'carousel-item';
+
+    let img = document.createElement('img');
+    img.className = 'imagencarusel1 w-100';
+    img.src = images[i];
+    img.alt = '...';
+
+    var caption = document.createElement('div');
+    caption.className = 'carousel-caption d-flex';
+
+    var h2 = document.createElement('h2');
+    h2.className = 'TituloHome';
+    h2.textContent = 'HOME';
+
+    caption.appendChild(h2);
+    bannerItem.appendChild(img);
+    bannerItem.appendChild(caption);
+    banner.appendChild(bannerItem);
+}
+
+
+///////////////////  checkbox-boton search   \\\\\\\\\\\\\\\\\\\\
+let check = document.getElementById("checkbox")
+
+let div = document.createElement("div")
+div.classList.add("checkbox", "text-white")
+
+check.appendChild(div)
+
+let categories = ["Category1", "Category2", "Category3", "Category4"];
+
+categories.forEach(function (category) {
+
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "form-check-input p-1 ms-4";
+    checkbox.setAttribute("aria-label", "checkbox");
+
+    var label = document.createElement("label");
+    label.className = "form-label ms-2";
+    label.textContent = category;
+
+    div.appendChild(checkbox);
+    div.appendChild(label);
+});
+
+let inputGroup = document.createElement("div");
+inputGroup.className = "input-group w-25";
+
+let searchInput = document.createElement("input");
+searchInput.type = "search";
+searchInput.className = "form-control rounded";
+searchInput.placeholder = "Search";
+
+let searchButton = document.createElement("button");
+searchButton.type = "button";
+searchButton.className = "btn btn-outline-light bg-dark";
+searchButton.textContent = "search";
+
+inputGroup.appendChild(searchInput);
+inputGroup.appendChild(searchButton);
+
+check.appendChild(inputGroup)
+
+
+///////////////////  tarjetas   \\\\\\\\\\\\\\\\\\\\
 let carrusel = document.getElementById("carousel-Principal")
-
-
 
 for (let i = 0; i < data.events.length; i += 4) {
     let carruselItem
-    
+
     if (i < 4) {
         carruselItem = document.createElement("div")
         carruselItem.classList.add("carousel-item", "active")
-        
+
     } else {
         carruselItem = document.createElement("div")
         carruselItem.classList.add("carousel-item")
     }
+
     let contenedor = document.createElement("div")
-    contenedor.classList.add( "d-flex","justify-content-around", "h-75")
-    
+    contenedor.classList.add("contenedor", "d-flex", "justify-content-evenly")
+
     let carruselItem2 = document.createElement("div")
     carruselItem2.classList.add("cards-wrapper", "d-flex")
-    
+
 
     for (let j = i; j < i + 4; j++) {
         if (data.events[j] != undefined) {
             let card = document.createElement("div")
-            card.classList.add("card", "w-25", "me-2", )
+            card.classList.add("card", "h-100", "ms-5", "align-middle")
             card.innerHTML = ` 
-        <img src="${data.events[j].image}" class="card-img-top h-50  "  alt="...">
-        <div class="card-body  bg-secondary">
+            <img src="${data.events[j].image}" class="imagen card-img-top w-100  "  alt="...">
+        <div class="card-body  bg-dark">
             <h3 class="card-title text-center text-white">${data.events[j].name} </h3>
-            <p class="card-text text-center text-white">${data.events[j].description}</p>
+            <p class="card-text text-justify text-white">${data.events[j].description}</p>
         </div>
-        <div class="d-flex justify-content-between p-3 bg-dark">
-            <a href="details.html#miFood" class="btn btn-secondary">Details</a>
+        <div class="d-flex justify-content-between  p-3 bg-secondary">
+            <a href="details.html#miFood" class="btn btn-primary">Details</a>
             <p class="card-text text-white">${data.events[j].price}</p>
         </div>`
             contenedor.appendChild(card)
@@ -236,11 +377,9 @@ for (let i = 0; i < data.events.length; i += 4) {
     }
     carruselItem.appendChild(carruselItem2)
     carruselItem2.appendChild(contenedor)
-    
+
     carrusel.appendChild(carruselItem)
 }
-
-
 
 
 
