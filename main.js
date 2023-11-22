@@ -265,7 +265,7 @@ nav.appendChild(navbarCollapse)
 ///////////////////  baner \\\\\\\\\\\\\\\\\\\\
 
 let banner = document.getElementById("banner");
-banner.className =" carousel-inner";
+banner.className = " carousel-inner";
 
 let images = ['optional_banner_1.jpg', 'optional_banner_2.jpg', 'optional_banner_3.jpg'];
 
@@ -279,10 +279,10 @@ for (let i = 0; i < images.length; i++) {
     img.alt = '...';
 
     var caption = document.createElement('div');
-    caption.className = 'carousel-caption d-flex';
+    caption.className = 'carousel-caption w-75 d-flex justify-content-lg-end ';
 
     var h2 = document.createElement('h2');
-    h2.className = 'TituloHome';
+    h2.className = 'TituloHome', 'text-end' ;
     h2.textContent = 'HOME';
 
     caption.appendChild(h2);
@@ -351,32 +351,33 @@ for (let i = 0; i < data.events.length; i += 4) {
         carruselItem.classList.add("carousel-item")
     }
 
-    let contenedor = document.createElement("div")
-    contenedor.classList.add("contenedor", "d-flex", "justify-content-evenly")
+    
 
     let carruselItem2 = document.createElement("div")
-    carruselItem2.classList.add("cards-wrapper", "d-flex")
+    carruselItem2.classList.add("cards", "d-flex", "p-3")
 
 
     for (let j = i; j < i + 4; j++) {
         if (data.events[j] != undefined) {
             let card = document.createElement("div")
-            card.classList.add("card", "h-100", "ms-5", "align-middle")
-            card.innerHTML = ` 
-            <img src="${data.events[j].image}" class="imagen card-img-top w-100  "  alt="...">
-        <div class="card-body  bg-dark">
+            card.classList.add("card" , "w-25", "ms-3", "me-3")
+            card.innerHTML = `
+            <div class="card-img-lg-top " >
+            <img src="${data.events[j].image}" class="imagen w-100 "  alt="...">
+            </div>             
+        <div class="card-lg-body bg-dark">
             <h3 class="card-title text-center text-white">${data.events[j].name} </h3>
             <p class="card-text text-justify text-white">${data.events[j].description}</p>
         </div>
-        <div class="d-flex justify-content-between  p-3 bg-secondary">
-            <a href="details.html#miFood" class="btn btn-primary">Details</a>
+        <div class="d-flex justify-content-lg-between  p-2 bg-secondary">
+            <a href="details.html#miFood" class="btn btn-dark">Details</a>
             <p class="card-text text-white">${data.events[j].price}</p>
         </div>`
-            contenedor.appendChild(card)
+            carruselItem2.appendChild(card)
         }
     }
     carruselItem.appendChild(carruselItem2)
-    carruselItem2.appendChild(contenedor)
+    
 
     carrusel.appendChild(carruselItem)
 }

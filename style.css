@@ -8,18 +8,10 @@
 #comentarios{
     height: 300px;
 }
-.imagen{
-    
-    width: 400px;
-    height: 200px;
+.imagen{        
+    height: 25vh;
 }
-.card{
-    width: 380px;
-    
-}
-.contenedor{
-    margin-left: 50px;
-}
+
 .boton{
-    width: 100px;
+    width: 2rem;
 }
