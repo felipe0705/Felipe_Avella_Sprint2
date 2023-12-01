@@ -269,7 +269,7 @@ nav.appendChild(navbarCollapse)
 let banner = document.getElementById("banner");
 banner.className = " carousel-inner";
 
-let images = ['optional_banner_1.jpg', 'optional_banner_2.jpg', 'optional_banner_3.jpg'];
+let images = ['optional_banner_2.jpg','optional_banner_1.jpg',  'optional_banner_3.jpg'];
 
 for (let i = 0; i < images.length; i++) {
     let bannerItem = document.createElement('div');
@@ -281,11 +281,11 @@ for (let i = 0; i < images.length; i++) {
     img.alt = '...';
 
     var caption = document.createElement('div');
-    caption.className = 'carousel-caption w-75 d-flex justify-content-lg-end';
+    caption.className = 'carousel-caption w-75 d-flex justify-content-md-end';
 
     var h2 = document.createElement('h2');
     h2.className = 'TituloHome';
-    h2.textContent = 'HOME';
+    h2.textContent = 'UPCOMING EVENTS';
 
     caption.appendChild(h2);
     bannerItem.appendChild(img);
@@ -377,15 +377,18 @@ function pintarTarjetas(arreglo, divprincipal) {
                 let card = document.createElement("div")
                 card.classList.add("card", "w-25", "ms-3", "me-3")
                 card.innerHTML = ` 
-            <div class="card-img-lg-top " >
+            <div class="card-img-md-top " >
                 <img src="${arreglo[j].image}" class="imagen w-100 "  alt="...">
             </div> 
-            <div class="card-lg-body  bg-secondary">
-                <h3 class="card-title text-center text-white">${arreglo[j].name} </h3>
-                <p class="card-text text-center text-white">${arreglo[j].description}</p>
+            <div class="card-md-body bg-secondary ">
+            <h4 class="card-title text-center mt-2 text-white">${arreglo[j].name} </h4>
             </div>
-            <div class="d-flex justify-content-lg-between p-2 bg-dark">
-                <a href="details.html#miFood" class="btn btn-secondary">Details</a>
+            <div class="cuerpo  card-md-body bg-dark">
+            
+                <p class="descrip card-text text-center text-white">${arreglo[j].description}</p>
+            </div>
+            <div class="d-flex justify-content-md-between p-2 bg-secondary">
+                <a href="details.html?id=${arreglo[j]._id}" class="btn btn-dark">Details</a>
                 <p class="card-text text-white">${arreglo[j].price}</p>
             </div>`
                 carruselItem2.appendChild(card)

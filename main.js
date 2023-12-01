@@ -267,7 +267,7 @@ nav.appendChild(navbarCollapse)
 let banner = document.getElementById("banner");
 banner.className = " carousel-inner";
 
-let images = ['optional_banner_1.jpg', 'optional_banner_2.jpg', 'optional_banner_3.jpg'];
+let images = ['optional_banner_3.jpg', 'optional_banner_2.jpg', 'optional_banner_1.jpg'];
 
 for (let i = 0; i < images.length; i++) {
     let bannerItem = document.createElement('div');
@@ -279,10 +279,10 @@ for (let i = 0; i < images.length; i++) {
     img.alt = '...';
 
     var caption = document.createElement('div');
-    caption.className = 'carousel-caption w-75 d-flex justify-content-lg-end ';
+    caption.className = 'carousel-caption w-75 d-flex justify-content-md-end ';
 
     var h2 = document.createElement('h2');
-    h2.className = 'TituloHome', 'text-end' ;
+    h2.className = 'TituloHome', 'text-end';
     h2.textContent = 'HOME';
 
     caption.appendChild(h2);
@@ -291,32 +291,43 @@ for (let i = 0; i < images.length; i++) {
     banner.appendChild(bannerItem);
 }
 
+let carrusel = document.getElementById("carousel-Principal")
+
+pintarTarjetas(data.events, carrusel)
 
 ///////////////////  checkbox-boton search   \\\\\\\\\\\\\\\\\\\\
 let check = document.getElementById("checkbox")
 
-let div = document.createElement("div")
-div.classList.add("checkbox", "text-white")
+let arrayCategory = Array.from(new Set(data.events.map(event => event.category)))
 
-check.appendChild(div)
+pintarCheckbox(arrayCategory, check)
 
-let categories = ["Category1", "Category2", "Category3", "Category4"];
+check.addEventListener("change", e=>{
+    let checked = Array.from(document.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value.toLowerCase())
+    let nuevoArreglo = filtrarCheckbox(data.events, checked)
+    pintarTarjetas(nuevoArreglo, carrusel)
+})
 
-categories.forEach(function (category) {
+function pintarCheckbox(arregloCategory, divc) {
+    for (let j = 0; j < arregloCategory.length; j++) {
+        if (arregloCategory[j] != undefined) {
+            let div = document.createElement("div")
+            div.classList.add("checkbox", "text-white")
+            div.innerHTML = `
+            <input class="form-check-input" type="checkbox" value="${arregloCategory[j]}" id="${arregloCategory[j]}">
+            <label class="form-check-label" for="${arregloCategory[j]}">${arregloCategory[j]}</label>`
 
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "form-check-input p-1 ms-4";
-    checkbox.setAttribute("aria-label", "checkbox");
+            divc.appendChild(div)
+        }
 
-    var label = document.createElement("label");
-    label.className = "form-label ms-2";
-    label.textContent = category;
+    }
+}
 
-    div.appendChild(checkbox);
-    div.appendChild(label);
-});
-
+function filtrarCheckbox(arreglo, arreglochecked) {
+    let arreglofinal = arreglo.filter(event => arreglochecked.includes(event.category.toLowerCase()))
+    return arreglofinal
+}
+////buscador\\\\\
 let inputGroup = document.createElement("div");
 inputGroup.className = "input-group w-25";
 
@@ -337,49 +348,55 @@ check.appendChild(inputGroup)
 
 
 ///////////////////  tarjetas   \\\\\\\\\\\\\\\\\\\\
-let carrusel = document.getElementById("carousel-Principal")
-
-for (let i = 0; i < data.events.length; i += 4) {
-    let carruselItem
-
-    if (i < 4) {
-        carruselItem = document.createElement("div")
-        carruselItem.classList.add("carousel-item", "active")
-
-    } else {
-        carruselItem = document.createElement("div")
-        carruselItem.classList.add("carousel-item")
-    }
-
-    
-
-    let carruselItem2 = document.createElement("div")
-    carruselItem2.classList.add("cards", "d-flex", "p-3")
 
 
-    for (let j = i; j < i + 4; j++) {
-        if (data.events[j] != undefined) {
-            let card = document.createElement("div")
-            card.classList.add("card" , "w-25", "ms-3", "me-3")
-            card.innerHTML = `
-            <div class="card-img-lg-top " >
-            <img src="${data.events[j].image}" class="imagen w-100 "  alt="...">
-            </div>             
-        <div class="card-lg-body bg-dark">
-            <h3 class="card-title text-center text-white">${data.events[j].name} </h3>
-            <p class="card-text text-justify text-white">${data.events[j].description}</p>
-        </div>
-        <div class="d-flex justify-content-lg-between  p-2 bg-secondary">
-            <a href="details.html#miFood" class="btn btn-dark">Details</a>
-            <p class="card-text text-white">${data.events[j].price}</p>
-        </div>`
-            carruselItem2.appendChild(card)
+function pintarTarjetas(arregloEventos, divp) {
+    divp.innerHTML=""
+    for (let i = 0; i < data.events.length; i += 4) {
+        let carruselItem
+
+        if (i < 4) {
+            carruselItem = document.createElement("div")
+            carruselItem.classList.add("carousel-item", "active")
+
+        } else {
+            carruselItem = document.createElement("div")
+            carruselItem.classList.add("carousel-item")
         }
-    }
-    carruselItem.appendChild(carruselItem2)
-    
 
-    carrusel.appendChild(carruselItem)
+
+
+        let carruselItem2 = document.createElement("div")
+        carruselItem2.classList.add("cards", "d-flex", "p-3")
+
+
+        for (let j = i; j < i + 4; j++) {
+            if (arregloEventos[j] != undefined) {
+                let card = document.createElement("div")
+                card.classList.add("card", "w-25", "ms-3", "me-3")
+                card.innerHTML = `
+            <div class="card-img-md-top " >
+            <img src="${arregloEventos[j].image}" class="imagen w-100 "  alt="...">
+            </div>             
+        <div class="card-md-body bg-secondary ">
+        <h4 class="card-title text-center mt-2 text-white">${arregloEventos[j].name} </h4>
+        </div>
+        <div class="cuerpo  card-md-body bg-dark">
+            
+            <p class="descrip card-text text-center text-white">${arregloEventos[j].description}</p>
+        </div>
+        <div class="d-flex justify-content-md-between  p-2 bg-secondary">
+            <a href="details.html?id=${arregloEventos[j]._id}" class="btn btn-dark">Details</a>
+            <p class="card-text text-white">${arregloEventos[j].price}</p>
+        </div>`
+                carruselItem2.appendChild(card)
+            }
+        }
+        carruselItem.appendChild(carruselItem2)
+
+
+        divp.appendChild(carruselItem)
+    }
 }
 
 

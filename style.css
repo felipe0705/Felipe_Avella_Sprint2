@@ -1,17 +1,30 @@
 .imagencarusel1{
-    height: 600px;
+    height: 65vh;
 }
 .logo{
     width: 160px;
     height: 40px;
 }
-#comentarios{
-    height: 300px;
-}
 .imagen{        
     height: 25vh;
 }
-
+#imagen{
+    height: 30vh;
+}
 .boton{
     width: 2rem;
+}
+.body{
+    height: 100vh;
+}
+.main{
+    height: 85.5vh;
+}
+.card{
+    height: 47vh;
+}
+.cuerpo{
+    height: 13vh;
+    display: flex;
+    align-items: center;
 }

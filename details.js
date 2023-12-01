@@ -1,4 +1,4 @@
-const data2 = {
+const data = {
     currentDate: "2023-01-01",
     events: [
         {
@@ -262,141 +262,20 @@ nav.appendChild(navbarButton)
 
 nav.appendChild(navbarCollapse)
 
+////////////// card \\\\\\\\\\\\\\\\\\\\\\\
+ let urlString = window.location.href
+ let urlArmada = new URL(urlString)
+ let parametro = new URLSearchParams(urlArmada.search)
+ let id = parametro.get('id')
 
-///////////////////  baner \\\\\\\\\\\\\\\\\\\\
+ let data2 = data.events.filter((evento) => evento._id == id)
 
-let banner = document.getElementById("banner");
-banner.className = " carousel-inner";
-
-let images = ['optional_banner_1.jpg', 'optional_banner_2.jpg', 'optional_banner_3.jpg'];
-
-for (let i = 0; i < images.length; i++) {
-    let bannerItem = document.createElement('div');
-    bannerItem.className = i === 0 ? 'carousel-item active' : 'carousel-item';
-
-    let img = document.createElement('img');
-    img.className = 'imagencarusel1 w-100';
-    img.src = images[i];
-    img.alt = '...';
-
-    var caption = document.createElement('div');
-    caption.className = 'carousel-caption w-75 d-flex justify-content-md-end';
-
-    var h2 = document.createElement('h2');
-    h2.className = 'TituloHome';
-    h2.textContent = 'PAST EVENTS';
-
-    caption.appendChild(h2);
-    bannerItem.appendChild(img);
-    bannerItem.appendChild(caption);
-    banner.appendChild(bannerItem);
-}
-
-///////////////////  checkbox-boton search   \\\\\\\\\\\\\\\\\\\\
-let check = document.getElementById("checkbox")
-
-let div = document.createElement("div")
-div.classList.add("checkbox", "text-white")
-
-check.appendChild(div)
-
-let categories = ["Category1", "Category2", "Category3", "Category4"];
-
-categories.forEach(function (category) {
-
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "form-check-input p-1 ms-4";
-    checkbox.setAttribute("aria-label", "checkbox");
-
-    var label = document.createElement("label");
-    label.className = "form-label ms-2";
-    label.textContent = category;
-
-    div.appendChild(checkbox);
-    div.appendChild(label);
-});
-
-let inputGroup = document.createElement("div");
-inputGroup.className = "input-group w-25";
-
-let searchInput = document.createElement("input");
-searchInput.type = "search";
-searchInput.className = "form-control rounded";
-searchInput.placeholder = "Search";
-
-let searchButton = document.createElement("button");
-searchButton.type = "button";
-searchButton.className = "btn btn-outline-light bg-dark";
-searchButton.textContent = "search";
-
-inputGroup.appendChild(searchInput);
-inputGroup.appendChild(searchButton);
-
-check.appendChild(inputGroup)
-
-///////////////////  tarjetas   \\\\\\\\\\\\\\\\\\\\
-
-
-let eventos = document.getElementById("futuros")
-
-let eventosF = filtrar(data2.events, data2.currentDate )
-pintarTarjetas( eventosF, eventos)
-
-
-function filtrar(arreglo, fecha) {
-    let nuevoarreglo = []
-    for (let i = 0; i < arreglo.length; i++) {
-        if (arreglo[i].date < fecha) {
-            nuevoarreglo.push(arreglo[i])
-        }
-        
-    }
-    return nuevoarreglo
-    
-}
-function pintarTarjetas(arreglo, divprincipal) {
-    for (let i = 0; i < arreglo.length; i += 4) {
-   
-        let carruselItem
-        if (i < 4) {
-            carruselItem = document.createElement("div")
-            carruselItem.classList.add("carousel-item", "active")
-            
-        } else {
-            carruselItem = document.createElement("div")
-            carruselItem.classList.add("carousel-item")
-        }     
-    
-            
-        let carruselItem2 = document.createElement("div")
-        carruselItem2.classList.add("cards", "d-flex","p-3" )
-    
-        for (let j = i; j < i + 4; j++) {
-            if (arreglo[j] != undefined) {
-                let card = document.createElement("div")
-                card.classList.add("card", "w-25", "ms-3", "me-3")
-                card.innerHTML = ` 
-            <div class="card-img-md-top " >
-                <img src="${arreglo[j].image}" class="imagen w-100 "  alt="...">
-            </div> 
-            <div class="card-md-body bg-secondary ">
-                <h4 class="card-title text-center mt-2 text-white">${arreglo[j].name} </h4>
-            </div>
-            <div class="cuerpo  card-md-body bg-dark">            
-                <p class="descrip card-text text-center text-white">${arreglo[j].description}</p>
-            </div>
-            <div class="d-flex justify-content-md-between p-3 bg-secondary">
-                <a href="details.html?id=${arreglo[j]._id}" class="btn btn-dark">Details</a>
-                <p class="card-text text-white">${arreglo[j].price}</p>
-            </div>`
-                carruselItem2.appendChild(card)
-            }
-        }
-        
-        carruselItem.appendChild(carruselItem2)
-        divprincipal.appendChild(carruselItem)
-    }
-}
-
-
+ document.getElementById('imagen').src = data2[0].image
+ document.getElementById('titulo').innerHTML = data2[0].name
+ document.getElementById('descripcion').innerHTML = data2[0].description
+ document.getElementById('date').innerHTML = data2[0].date
+ document.getElementById('category').innerHTML = data2[0].category
+ document.getElementById('place').innerHTML = data2[0].place
+ document.getElementById('capacity').innerHTML = data2[0].capacity
+ document.getElementById('assistance').innerHTML = data2[0].assistance
+ document.getElementById('price').innerHTML = data2[0].price
