@@ -293,8 +293,8 @@ for (let i = 0; i < images.length; i++) {
 
 let carrusel = document.getElementById("carousel-Principal")
 
-pintarTarjetas(data.events, carrusel)
 
+pintarTarjetas(data.events, carrusel)
 ///////////////////  checkbox-boton search   \\\\\\\\\\\\\\\\\\\\
 let check = document.getElementById("checkbox")
 
@@ -302,7 +302,7 @@ let arrayCategory = Array.from(new Set(data.events.map(event => event.category))
 
 pintarCheckbox(arrayCategory, check)
 
-check.addEventListener("change", e=>{
+check.addEventListener("change", e => {
     let checked = Array.from(document.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value.toLowerCase())
     let nuevoArreglo = filtrarCheckbox(data.events, checked)
     pintarTarjetas(nuevoArreglo, carrusel)
@@ -315,7 +315,7 @@ function pintarCheckbox(arregloCategory, divc) {
             div.classList.add("checkbox", "text-white")
             div.innerHTML = `
             <input class="form-check-input" type="checkbox" value="${arregloCategory[j]}" id="${arregloCategory[j]}">
-            <label class="form-check-label" for="${arregloCategory[j]}">${arregloCategory[j]}</label>`
+            <label class="form-check-label me-3" for="${arregloCategory[j]}">${arregloCategory[j]}</label>`
 
             divc.appendChild(div)
         }
@@ -328,30 +328,31 @@ function filtrarCheckbox(arreglo, arreglochecked) {
     return arreglofinal
 }
 ////buscador\\\\\
-let inputGroup = document.createElement("div");
-inputGroup.className = "input-group w-25";
 
-let searchInput = document.createElement("input");
-searchInput.type = "search";
-searchInput.className = "form-control rounded";
-searchInput.placeholder = "Search";
 
-let searchButton = document.createElement("button");
-searchButton.type = "button";
-searchButton.className = "btn btn-outline-light bg-dark";
-searchButton.textContent = "search";
+let buscador = document.getElementById("input")
+buscador.addEventListener("keyup",nuv => {
+    let nuevoBuscador= filtrarPalabra(data.events, nuv.target.value)
+    pintarTarjetas(nuevoBuscador, carrusel )
+})
 
-inputGroup.appendChild(searchInput);
-inputGroup.appendChild(searchButton);
 
-check.appendChild(inputGroup)
+function filtrarPalabra(arregloEvento, palabraClave) {
+
+    let arregloNuevo = arregloEvento.filter(evento => evento.name.toLowerCase().includes(palabraClave.toLowerCase()) || evento.description.toLowerCase().includes(palabraClave.toLowerCase()))
+    return arregloNuevo
+}
+
+
+
 
 
 ///////////////////  tarjetas   \\\\\\\\\\\\\\\\\\\\
 
 
+
 function pintarTarjetas(arregloEventos, divp) {
-    divp.innerHTML=""
+    divp.innerHTML = ""
     for (let i = 0; i < data.events.length; i += 4) {
         let carruselItem
 
@@ -367,7 +368,7 @@ function pintarTarjetas(arregloEventos, divp) {
 
 
         let carruselItem2 = document.createElement("div")
-        carruselItem2.classList.add("cards", "d-flex", "p-3")
+        carruselItem2.classList.add("cards", "d-sm-flex", "p-3")
 
 
         for (let j = i; j < i + 4; j++) {
@@ -375,11 +376,11 @@ function pintarTarjetas(arregloEventos, divp) {
                 let card = document.createElement("div")
                 card.classList.add("card", "w-25", "ms-3", "me-3")
                 card.innerHTML = `
-            <div class="card-img-md-top " >
+            <div class="card-img-sm-top " >
             <img src="${arregloEventos[j].image}" class="imagen w-100 "  alt="...">
             </div>             
-        <div class="card-md-body bg-secondary ">
-        <h4 class="card-title text-center mt-2 text-white">${arregloEventos[j].name} </h4>
+        <div class="titulo card-sm-body bg-secondary ">
+        <h5 class=" card-title text-center mt-2 text-white">${arregloEventos[j].name} </h5>
         </div>
         <div class="cuerpo  card-md-body bg-dark">
             

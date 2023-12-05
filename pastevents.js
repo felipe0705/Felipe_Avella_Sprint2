@@ -295,46 +295,50 @@ for (let i = 0; i < images.length; i++) {
 ///////////////////  checkbox-boton search   \\\\\\\\\\\\\\\\\\\\
 let check = document.getElementById("checkbox")
 
-let div = document.createElement("div")
-div.classList.add("checkbox", "text-white")
+let arrayCategory = Array.from(new Set(data2.events.map(event => event.category)))
 
-check.appendChild(div)
+pintarCheckbox(arrayCategory, check)
 
-let categories = ["Category1", "Category2", "Category3", "Category4"];
+check.addEventListener("change", e => {
+    let checked = Array.from(document.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value.toLowerCase())
+    let nuevoArreglo = filtrarCheckbox(data2.events, checked)
+    pintarTarjetas(nuevoArreglo, eventos)
+})
 
-categories.forEach(function (category) {
+function pintarCheckbox(arregloCategory, divc) {
+    for (let j = 0; j < arregloCategory.length; j++) {
+        if (arregloCategory[j] != undefined) {
+            let div = document.createElement("div")
+            div.classList.add("checkbox", "text-white")
+            div.innerHTML = `
+            <input class="form-check-input" type="checkbox" value="${arregloCategory[j]}" id="${arregloCategory[j]}">
+            <label class="form-check-label me-3" for="${arregloCategory[j]}">${arregloCategory[j]}</label>`
 
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "form-check-input p-1 ms-4";
-    checkbox.setAttribute("aria-label", "checkbox");
+            divc.appendChild(div)
+        }
 
-    var label = document.createElement("label");
-    label.className = "form-label ms-2";
-    label.textContent = category;
+    }
+}
 
-    div.appendChild(checkbox);
-    div.appendChild(label);
-});
+function filtrarCheckbox(arreglo, arreglochecked) {
+    let arreglofinal = arreglo.filter(event => arreglochecked.includes(event.category.toLowerCase()))
+    return arreglofinal
+}
+////buscador\\\\\
 
-let inputGroup = document.createElement("div");
-inputGroup.className = "input-group w-25";
 
-let searchInput = document.createElement("input");
-searchInput.type = "search";
-searchInput.className = "form-control rounded";
-searchInput.placeholder = "Search";
+let buscador = document.getElementById("input")
+buscador.addEventListener("keyup",nuv => {
+    let nuevoBuscador= filtrarPalabra(data2.events, nuv.target.value)
+    pintarTarjetas(nuevoBuscador, eventos )
+})
 
-let searchButton = document.createElement("button");
-searchButton.type = "button";
-searchButton.className = "btn btn-outline-light bg-dark";
-searchButton.textContent = "search";
 
-inputGroup.appendChild(searchInput);
-inputGroup.appendChild(searchButton);
+function filtrarPalabra(arregloEvento, palabraClave) {
 
-check.appendChild(inputGroup)
-
+    let arregloNuevo = arregloEvento.filter(evento => evento.name.toLowerCase().includes(palabraClave.toLowerCase()) || evento.description.toLowerCase().includes(palabraClave.toLowerCase()))
+    return arregloNuevo
+}
 ///////////////////  tarjetas   \\\\\\\\\\\\\\\\\\\\
 
 
@@ -356,6 +360,7 @@ function filtrar(arreglo, fecha) {
     
 }
 function pintarTarjetas(arreglo, divprincipal) {
+    divprincipal.innerHTML = ""
     for (let i = 0; i < arreglo.length; i += 4) {
    
         let carruselItem

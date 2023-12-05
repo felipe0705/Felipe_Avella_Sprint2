@@ -14,17 +14,15 @@
 .boton{
     width: 2rem;
 }
-.body{
-    height: 100vh;
-}
-.main{
+.menu{
     height: 85.5vh;
 }
 .card{
-    height: 47vh;
+    height: 49vh;
+    font-size: 1rem;
 }
 .cuerpo{
-    height: 13vh;
+    height: 14vh;
     display: flex;
     align-items: center;
 }
