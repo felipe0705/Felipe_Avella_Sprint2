@@ -345,7 +345,9 @@ function filtrarPalabra(arregloEvento, palabraClave) {
 let eventos = document.getElementById("futuros")
 
 let eventosF = filtrar(data2.events, data2.currentDate)
+
 pintarTarjetas(eventosF, eventos)
+
 
 
 function filtrar(arreglo, fecha) {
