@@ -1,4 +1,8 @@
+
+
 export function pintarTarjetas(arregloEventos, divp) {
+
+    divp.innerHTML = ""
     if (arregloEventos.length == 0) {
 
         divp.innerHTML = `<div class="hola"><p class="textoTarjetaNoEncontrada" > "No events found,  try again! </p> </div>
@@ -9,26 +13,26 @@ export function pintarTarjetas(arregloEventos, divp) {
 
         if (i < 4) {
             carruselItem = document.createElement("div")
-            carruselItem.classList.add("carousel-item", "active")
+            carruselItem.classList.add("carousel-item", "active" )
 
         } else {
             carruselItem = document.createElement("div")
-            carruselItem.classList.add("carousel-item")
+            carruselItem.classList.add("carousel-item" )
         }
 
 
 
         let carruselItem2 = document.createElement("div")
-        carruselItem2.classList.add("cards", "d-sm-flex", "p-3")
+        carruselItem2.classList.add("cards2","row","p-3", )
 
 
         for (let j = i; j < i + 4; j++) {
             if (arregloEventos[j] != undefined) {
                 let card = document.createElement("div")
-                card.classList.add("card", "w-25", "ms-3", "me-3")
+                card.classList.add("card", "col-12", "col-md-12", "col-lg-3", )
                 card.innerHTML = `
-            <div class="card-img-sm-top " >
-            <img src="${arregloEventos[j].image}" class="imagen w-100 "  alt="...">
+            <div class="card-img" >
+            <img src="${arregloEventos[j].image}" class="imagen w-100"  alt="...">
             </div>             
         <div class="titulo card-sm-body bg-secondary ">
         <h5 class=" card-title text-center mt-2 text-white">${arregloEventos[j].name} </h5>
